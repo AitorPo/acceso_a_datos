@@ -1,1 +1,1 @@
-# acceso_a_datos
+Proyecto de la asignatura Acceso a datos de 2º de DAM en el que se desarrolla una aplicación de escritorio con JavaFX interactuando con una BD relacional a través de la cual se llevará a cabo la gestión y planificación de tareas a realizar en los distintos parques nacionales.
