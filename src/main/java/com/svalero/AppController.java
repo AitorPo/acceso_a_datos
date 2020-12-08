@@ -49,6 +49,7 @@ public class AppController implements Initializable {
         try {
             ciudadDAO.connect();
             parqueDAO.connect();
+            getAllCiudades();
             loadComboBox();
         } catch (IOException ioe) {
             AlertUtils.showError("Error al cargar la configuración de la BD");
@@ -60,33 +61,65 @@ public class AppController implements Initializable {
 
     }
 
-    /*public List<Ciudad> getAllCiudades() throws SQLException {
-        CiudadDAO ciudadDAO = new CiudadDAO();
+    /*public List<String> getAllCiudades() throws SQLException {
+
         return ciudadDAO.getAllCiudad();
     }*/
-    public void loadComboBox() throws SQLException {
-        String[] ciudades = new String[]{"Valencia", "Barcelona", "Madrid"};
+    public List<Ciudad> getAllCiudades() throws SQLException {
+        return ciudadDAO.getAllCiudad();
+    }
+    /*public void loadComboBox()  {
 
-        cbCiudad.setItems(FXCollections.observableArrayList(ciudades));
+        List<String> ciudades = null;
+        try {
+            ciudades = getAllCiudades();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
+        cbCiudad.setItems(FXCollections.observableList(ciudades));
+    }*/
+    public void loadComboBox()  {
+        List<Ciudad> ciudades = null;
+        List<String> ciudadesString = new ArrayList<>();
+
+        try {
+            ciudades = getAllCiudades();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        for(Ciudad ciudad : ciudades){
+            String nombre = ciudad.getNombreCiudad();
+            System.out.println(nombre);
+            ciudadesString.add(nombre);
+        }
+        cbCiudad.setItems(FXCollections.observableArrayList(ciudadesString));
+    }
+
+    public void loadListView(){
+
+    }
+
+    public void cleanFields(){
+        tfParque.clear();
+        tfTarea.clear();
     }
 
     @FXML
     public void addParque(ActionEvent event) throws SQLException {
         String nombre = tfParque.getText();
         String ciudad = cbCiudad.getSelectionModel().getSelectedItem();
-
         int id = ciudadDAO.getIdCiudad(ciudad);
 
-        System.out.println(id);
+        //System.out.println(id);
         Parque parque = new Parque(nombre, id);
         parqueDAO.insertParque(parque);
-
+        cleanFields();
     }
 
     @FXML
     public void modifyParque(ActionEvent event){
-
+        String nombre = tfParque.getText();
     }
 
     @FXML

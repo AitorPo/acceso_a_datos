@@ -6,10 +6,10 @@ public class Parque {
     private String nombreParque;
 
     public Parque(String nombreParque, int idCiudad){
-
         this.idCiudad = idCiudad;
         this.nombreParque = nombreParque;
     }
+    public Parque(){}
 
     public int getIdParque() {
         return idParque;

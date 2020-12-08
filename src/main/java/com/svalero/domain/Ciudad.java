@@ -41,4 +41,8 @@ public class Ciudad {
     public String toString() {
         return getIdCiudad() + " " + getNombreCiudad() + " " + getComunidadAutonoma();
     }
+
+    public String showNombre(){
+        return getNombreCiudad();
+    }
 }

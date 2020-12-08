@@ -51,34 +51,33 @@ public class ParqueDAO {
         ps.executeUpdate();
     }
 
-    public void updateCiudad(Ciudad ciudadOriginal, Ciudad ciudadNueva) throws SQLException {
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.UPDATE);
-        ps.setString(1, ciudadNueva.getNombreCiudad());
-        ps.setInt(2, ciudadOriginal.getIdCiudad());
+    public void updateParque(Parque parqueOriginal, Parque parqueNuevo) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.UPDATE);
+        ps.setString(1, parqueNuevo.getNombreParque());
+        ps.setInt(2, parqueOriginal.getIdCiudad());
         ps.executeUpdate();
     }
 
-    public boolean existsCiudad(Ciudad ciudad) throws SQLException{
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.EXISTS);
-        ps.setString(1, ciudad.getNombreCiudad());
+    public boolean existsParque(Parque parque) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.EXISTS);
+        ps.setString(1, parque.getNombreParque());
         ResultSet rs = ps.executeQuery();
 
         return rs.next();
     }
 
-    public List<Ciudad> getAllCiudad() throws SQLException{
-        List<Ciudad> ciudades = new ArrayList<>();
-
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_NAME);
+    public List<Parque> getAllParque() throws SQLException {
+        List<Parque> parques = new ArrayList<>();
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_NAME);
         ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            Ciudad ciudad = new Ciudad();
-            ciudad.setIdCiudad(rs.getInt(1));
-            ciudad.setNombreCiudad(rs.getString(2));
-            ciudad.setComunidadAutonoma(rs.getString(3));
 
-            ciudades.add(ciudad);
+        while(rs.next()){
+            Parque parque = new Parque();
+            String nombre = rs.getString(1);
+            parque.setNombreParque(nombre);
+            //System.out.println(nombre);
+            parques.add(parque);
         }
-        return ciudades;
+        return parques;
     }
 }
