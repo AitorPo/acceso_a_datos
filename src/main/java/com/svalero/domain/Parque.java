@@ -5,8 +5,8 @@ public class Parque {
     private int idCiudad;
     private String nombreParque;
 
-    public Parque(int idParque, int idCiudad, String nombreParque){
-        this.idParque = idParque;
+    public Parque(String nombreParque, int idCiudad){
+
         this.idCiudad = idCiudad;
         this.nombreParque = nombreParque;
     }

@@ -1,12 +1,14 @@
 package com.svalero.DAO;
 
+import com.svalero.domain.Ciudad;
 import com.svalero.domain.Parque;
+import util.Constants;
 import util.R;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class ParqueDAO {
@@ -35,6 +37,48 @@ public class ParqueDAO {
     }
 
     public void insertParque(Parque parque) throws SQLException{
+        PreparedStatement ps = null;
 
+        ps = conn.prepareStatement(Constants.ConstantsParque.INSERT);
+        ps.setString(1, parque.getNombreParque());
+        ps.setInt(2, parque.getIdCiudad());
+
+        ps.executeUpdate();
+    }
+
+    public void deleteParque(Parque parque) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.DELETE);
+        ps.executeUpdate();
+    }
+
+    public void updateCiudad(Ciudad ciudadOriginal, Ciudad ciudadNueva) throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.UPDATE);
+        ps.setString(1, ciudadNueva.getNombreCiudad());
+        ps.setInt(2, ciudadOriginal.getIdCiudad());
+        ps.executeUpdate();
+    }
+
+    public boolean existsCiudad(Ciudad ciudad) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.EXISTS);
+        ps.setString(1, ciudad.getNombreCiudad());
+        ResultSet rs = ps.executeQuery();
+
+        return rs.next();
+    }
+
+    public List<Ciudad> getAllCiudad() throws SQLException{
+        List<Ciudad> ciudades = new ArrayList<>();
+
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_NAME);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+            Ciudad ciudad = new Ciudad();
+            ciudad.setIdCiudad(rs.getInt(1));
+            ciudad.setNombreCiudad(rs.getString(2));
+            ciudad.setComunidadAutonoma(rs.getString(3));
+
+            ciudades.add(ciudad);
+        }
+        return ciudades;
     }
 }

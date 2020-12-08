@@ -26,25 +26,26 @@
       </MenuBar>
       <AnchorPane prefHeight="686.0" prefWidth="758.0">
          <children>
-            <TableView layoutX="25.0" layoutY="348.0" prefHeight="279.0" prefWidth="711.0" />
+            <TableView fx:id="tableData" layoutX="25.0" layoutY="348.0" prefHeight="279.0" prefWidth="711.0" />
             <Label layoutX="47.0" layoutY="48.0" text="Nombre del parque" />
             <Label layoutX="47.0" layoutY="79.0" text="Ciudad del parque" />
             <Label layoutX="47.0" layoutY="145.0" text="Descripción de la terea" />
-            <TextField layoutX="173.0" layoutY="44.0" />
-            <ComboBox layoutX="173.0" layoutY="75.0" prefWidth="150.0" />
-            <TextArea layoutX="173.0" layoutY="146.0" prefHeight="59.0" prefWidth="150.0" />
+            <TextField fx:id="tfParque" layoutX="173.0" layoutY="44.0" />
+            <ComboBox fx:id="cbCiudad" layoutX="173.0" layoutY="75.0" prefWidth="150.0" />
+            <TextArea fx:id="taDescripcion" layoutX="173.0" layoutY="146.0" prefHeight="59.0" prefWidth="150.0" />
             <Label layoutX="47.0" layoutY="112.0" text="Nombre de la tarea" />
-            <TextField layoutX="173.0" layoutY="109.0" />
+            <TextField fx:id="tfTarea" layoutX="173.0" layoutY="109.0" />
             <Button fx:id="btnAddParque" layoutX="88.0" layoutY="245.0" mnemonicParsing="false" onAction="#addParque" prefHeight="25.0" prefWidth="108.0" text="Añadir parque" />
             <Button fx:id="btnAddTarea" layoutX="282.0" layoutY="245.0" mnemonicParsing="false" onAction="#addTarea" prefHeight="25.0" prefWidth="97.0" text="Añadir tarea" />
             <Button fx:id="btnModifyParque" layoutX="88.0" layoutY="281.0" mnemonicParsing="false" onAction="#modifyParque" text="Modificar parque" />
             <Button fx:id="btnModifyTarea" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#modifyTarea" text="Modificar tarea" />
             <Button fx:id="btnDeleteTarea" layoutX="633.0" layoutY="319.0" mnemonicParsing="false" onAction="#deleteTarea" text="Eliminar registro" />
-            <ListView layoutX="417.0" layoutY="22.0" prefHeight="293.0" prefWidth="319.0" />
+            <ListView fx:id="lvParques" layoutX="417.0" layoutY="22.0" prefHeight="293.0" prefWidth="319.0" />
             <Label layoutX="91.0" layoutY="222.0" text="Gestión de parques" />
             <Label layoutX="279.0" layoutY="222.0" prefHeight="17.0" prefWidth="98.0" text="Gestión de tareas" />
             <Label layoutX="417.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" text="Lista de parques" />
             <Label layoutX="25.0" layoutY="633.0" text="Actividad de aprendizaje Aitor Poquet Ginestar 2020" />
+            <Label fx:id="lblStatus" layoutX="86.0" layoutY="321.0" prefHeight="17.0" prefWidth="327.0" />
          </children>
       </AnchorPane>
    </children>

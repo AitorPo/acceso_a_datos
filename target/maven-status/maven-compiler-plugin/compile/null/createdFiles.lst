@@ -9,6 +9,7 @@ util\Constants$ConstantsCiudad.class
 com\svalero\DAO\TareaDAO.class
 com\svalero\AppController.class
 com\svalero\DAO\ParqueDAO.class
+com\svalero\AppController$Accion.class
 util\AlertUtils.class
 util\R.class
 com\svalero\domain\Tarea.class

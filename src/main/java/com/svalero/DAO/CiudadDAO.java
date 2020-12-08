@@ -62,20 +62,19 @@ public class CiudadDAO {
         return rs.next();
     }
 
-    public List<Ciudad> getAllCiudad() throws SQLException{
-        List<Ciudad> ciudades = new ArrayList<>();
-
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_ALL);
+    public int getIdCiudad(String ciudad) throws SQLException{
+        int idCiudad = 0;
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_ID_BY_NAME);
+        ps.setString(1, ciudad);
         ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-            Ciudad ciudad = new Ciudad();
-            ciudad.setIdCiudad(rs.getInt(1));
-            ciudad.setNombreCiudad(rs.getString(2));
-            ciudad.setComunidadAutonoma(rs.getString(3));
 
-            ciudades.add(ciudad);
+        if(rs.next()) {
+            idCiudad = rs.getInt(1);
+
         }
-        return ciudades;
+        return idCiudad;
     }
 
-}
+    }
+
+

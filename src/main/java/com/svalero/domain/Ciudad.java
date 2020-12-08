@@ -36,4 +36,9 @@ public class Ciudad {
     public void setComunidadAutonoma(String comunidadAutonoma) {
         this.comunidadAutonoma = comunidadAutonoma;
     }
+
+    @Override
+    public String toString() {
+        return getIdCiudad() + " " + getNombreCiudad() + " " + getComunidadAutonoma();
+    }
 }
