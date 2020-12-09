@@ -37,6 +37,6 @@ public class Parque {
 
     @Override
     public String toString() {
-        return getNombreParque();
+        return getIdParque() + " " + getNombreParque() + " " + getIdCiudad();
     }
 }

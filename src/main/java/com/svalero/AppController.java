@@ -32,13 +32,16 @@ public class AppController implements Initializable {
     public Label lblStatus;
     public ListView<Parque> lvParques;
     public TableView<Tarea> tvTarea;
-    public Button btnAddParque, btnAddTarea, btnModifyParque, btnModifyTarea, btnDeleteParque, btnDeleteTarea, btnNewTarea, btnNewParque;
+    public Button btnAddParque, btnAddTarea, btnModifyParque,
+            btnModifyTarea, btnDeleteParque, btnDeleteTarea, btnNewTarea,
+            btnNewParque, btnCancel, btnSave;
 
     public AppController() {
     }
 
     private enum Accion {
-        NEW,MODIFY
+        NEW_PARQUE,MODIFY_PARQUE, DELETE_PARQUE,
+        NEW_TAREA, MODIFY_TAREA
     }
     private Accion accion;
     private ParqueDAO parqueDAO;
@@ -61,7 +64,9 @@ public class AppController implements Initializable {
             loadComboBox();
             loadTable();
             setTable();
-
+           // editModeParque(false);
+            //editModeTarea(false);
+            btnCancel.setDisable(true);
         } catch (IOException ioe) {
             AlertUtils.showError("Error al cargar la configuración de la BD");
         } catch (ClassNotFoundException cnfe) {
@@ -72,6 +77,8 @@ public class AppController implements Initializable {
     }
 
     private void loadTable(){
+        editModeParque(false);
+        editModeTarea(false);
         tvTarea.getItems().clear();
         List<Tarea> tareas = null;
         try {
@@ -95,6 +102,8 @@ public class AppController implements Initializable {
     }
 
     private void loadComboBox()  {
+        editModeParque(false);
+        editModeTarea(false);
         List<Ciudad> ciudades = null;
         try {
             ciudades = ciudadDAO.getAllCiudad();
@@ -105,6 +114,8 @@ public class AppController implements Initializable {
     }
 
     private void loadListView(){
+        editModeParque(false);
+        editModeTarea(false);
         lvParques.getItems().clear();
         List<Parque> parques = null;
         try {
@@ -130,66 +141,119 @@ public class AppController implements Initializable {
     @FXML
     public void newParque(ActionEvent event){
         cleanFields();
-        editModeParque(false);
-        editModeTarea(true);
-        accion = Accion.NEW;
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Activar modo editable");
+        conf.setContentText("¿Deseas activar el modo de edición?");
+        Optional<ButtonType> res = conf.showAndWait();
+        if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;
+        editModeParque(true);
+        editModeTarea(false);
+        btnNewTarea.setDisable(true);
+        tfParque.setDisable(true);
+        cbCiudad.setDisable(true);
     }
 
     @FXML
-    public void newTarea(ActionEvent event){
-        cleanFields();
-        editModeTarea(true);
-        accion = Accion.NEW;
-    }
-
-    @FXML
-    public void addParque(ActionEvent event) {
-        String nombre;
+    public void onSave(ActionEvent event){
+        String nombre = tfParque.getText();
         Ciudad ciudad  = cbCiudad.getSelectionModel().getSelectedItem();
         selectedParque = lvParques.getSelectionModel().getSelectedItem();
-        Parque parque;
-        int idCiudad = 0;
-        int idParque = 0;
         try {
-            idCiudad = ciudadDAO.getIdCiudad(ciudad.getNombreCiudad());
+            int idCiudad = ciudadDAO.getIdCiudad(ciudad.getNombreCiudad());
             //System.out.println(id);
-
+            Parque parque = new Parque(nombre, idCiudad);
             switch (accion){
-            case NEW:
-                nombre = tfParque.getText();
-                parque = new Parque(nombre, idCiudad);
-                parqueDAO.insertParque(parque);
-                setLabelStatus("Parque añadido correctamente");
-                break;
-            case MODIFY:
-               nombre = tfParque.getText();
-               idParque = selectedParque.getIdParque();
-               parque = new Parque(nombre, idParque);
-               parqueDAO.updateParque(selectedParque, parque);
-               setLabelStatus("Parque actualizado correctamente");
-               break;
+                case NEW_PARQUE:
+                    parqueDAO.insertParque(parque);
+                    setLabelStatus("Parque añadido correctamente");
+                    break;
+                case MODIFY_PARQUE:
+                    parqueDAO.updateParque(selectedParque, parque);
+                    setLabelStatus("Parque añadido correctamente");
+                    break;
+                case DELETE_PARQUE:
+                    Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+                    conf.setTitle("Eliminar parque");
+                    conf.setContentText("¿Realizar la acción?");
+                    Optional<ButtonType> res = conf.showAndWait();
+                    if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;
+                    parqueDAO.deleteParque(selectedParque);
+                    setLabelStatus("Parque eliminado correctamente");
+                    break;
             }
         } catch (SQLException sqle){
             AlertUtils.showError("Error al manejar los datos del parque");
         }
         cleanFields();
         loadListView();
-
     }
 
     @FXML
+    public void newTarea(ActionEvent event){
+        cleanFields();
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Activar modo editable");
+        conf.setContentText("¿Deseas activar el modo de edición?");
+        Optional<ButtonType> res = conf.showAndWait();
+        if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;
+        editModeTarea(true);
+        editModeParque(false);
+        btnNewParque.setDisable(true);
+        accion = Accion.NEW_TAREA;
+    }
+
+    //Botón "Nuevo parque"
+    @FXML
+    public void addParque(ActionEvent event) {
+        cleanFields();
+        editModeParque(true);
+        accion = Accion.NEW_PARQUE;
+        btnModifyParque.setDisable(true);
+        btnDeleteParque.setDisable(true);
+        btnCancel.setDisable(false);
+        /*String nombre = tfParque.getText();
+        Ciudad ciudad  = cbCiudad.getSelectionModel().getSelectedItem();
+        selectedParque = lvParques.getSelectionModel().getSelectedItem();
+        try {
+            int idCiudad = ciudadDAO.getIdCiudad(ciudad.getNombreCiudad());
+            //System.out.println(id);
+            Parque parque = new Parque(nombre, idCiudad);
+            switch (accion){
+                case NEW_PARQUE:
+                    parqueDAO.insertParque(parque);
+                    setLabelStatus("Parque añadido correctamente");
+                    break;
+                case MODIFY_PARQUE:
+                    parqueDAO.updateParque(selectedParque, parque);
+                    break;
+            }
+
+        } catch (SQLException sqle){
+            AlertUtils.showError("Error al manejar los datos del parque");
+        }
+        cleanFields();
+        loadListView();*/
+    }
+
+    //Botón "Modificar parque"
+    @FXML
     public void modifyParque(ActionEvent event) {
         editModeParque(true);
-        accion = Accion.MODIFY;
-        /*selectedParque = lvParques.getSelectionModel().getSelectedItem();
+        accion = Accion.MODIFY_PARQUE;
+        btnAddParque.setDisable(true);
+        btnDeleteParque.setDisable(true);
+        btnCancel.setDisable(false);
+        /*
+        selectedParque = lvParques.getSelectionModel().getSelectedItem();
         String nombre = null;
         Parque parque;
         int id = 0;
         //System.out.println(parque.toString());
         try {
             nombre = tfParque.getText();
-            id = selectedParque.getIdParque();
+            id = selectedParque.getIdCiudad();
             parque = new Parque(nombre, id);
+            System.out.println(parque.toString());
             parqueDAO.updateParque(selectedParque, parque);
         } catch (SQLException sqle) {
             AlertUtils.showError("Error al actualizar el parque");
@@ -201,12 +265,15 @@ public class AppController implements Initializable {
 
     @FXML
     public void deleteParque(ActionEvent event){
-        Parque parque = lvParques.getSelectionModel().getSelectedItem();
-        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
-        conf.setTitle("Eliminar parque");
-        conf.setContentText("¿Realizar la acción?");
-        Optional<ButtonType> res = conf.showAndWait();
-        if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;        try {
+        editModeParque(true);
+        //Parque parque = lvParques.getSelectionModel().getSelectedItem();
+        AlertUtils.showAlert("Selecciona un parque de la lista para eliminarlo");
+        accion = Accion.DELETE_PARQUE;
+        btnModifyParque.setDisable(true);
+        btnAddParque.setDisable(true);
+        btnCancel.setDisable(false);
+        /*
+        try {
             parqueDAO.deleteParque(parque);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -214,25 +281,38 @@ public class AppController implements Initializable {
         cleanFields();
         loadListView();
         loadTable();
-        setLabelStatus("Parque eliminado correctamente");
+        setLabelStatus("Parque eliminado correctamente");*/
     }
 
     @FXML
     public void addTarea(ActionEvent event){
         selectedParque = lvParques.getSelectionModel().getSelectedItem();
-        int idParque = selectedParque.getIdParque();
+        selectedTarea = tvTarea.getSelectionModel().getSelectedItem();
+        int idParque = selectedTarea.getIdParque();
         String nombre = tfTarea.getText();
         String descripcion = taDescripcion.getText();
+        if (tfParque.getText().isEmpty()){
+            AlertUtils.showAlert("Selecciona un parque sobre el que añadir la tarea");
+            return;
+        }
+        if (tfTarea.getText().isEmpty() || taDescripcion.getText().isEmpty()){
+            AlertUtils.showAlert("Rellena los datos de la tarea");
+            return;
+        }
         Tarea tarea = new Tarea(idParque, nombre, descripcion);
-        try {
+        try{
+
             tareaDAO.insertTarea(tarea);
-        } catch (SQLException sqle) {
-            AlertUtils.showError("Error al añadir la tarea");
+            setLabelStatus("Tarea añadida correctamente");
+        } catch (SQLException sqle){
+            AlertUtils.showError("Error al manejar los datos de la tarea");
+        } catch (NullPointerException npe){
+            AlertUtils.showError("Error al manejar los datos de la tarea");
         }
         cleanFields();
         loadListView();
         loadTable();
-        setLabelStatus("Tarea añadida correctamente");
+        btnCancel.setDisable(true);
     }
 
     @FXML
@@ -246,7 +326,7 @@ public class AppController implements Initializable {
         try {
             tareaDAO.updateTarea(selectedTarea, tarea);//nombre descrip where id_parque = ?
         } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            AlertUtils.showError("Error al actualizar los datos de la tarea");
         }
         cleanFields();
         loadTable();
@@ -282,6 +362,27 @@ public class AppController implements Initializable {
         loadParque(selectedParque);
     }
 
+    @FXML
+    public void getTareaData(Event event){
+        selectedTarea = tvTarea.getSelectionModel().getSelectedItem();
+        loadTarea(selectedTarea);
+    }
+
+    @FXML
+    private void onCancel(ActionEvent event){
+        Alert conf = new Alert(Alert.AlertType.CONFIRMATION);
+        conf.setTitle("Cancelar modo editable");
+        conf.setContentText("¿Deseas cancelar el modo de edición?");
+        Optional<ButtonType> res = conf.showAndWait();
+        if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;
+        editModeParque(false);
+        editModeTarea(false);
+        btnCancel.setDisable(true);
+        loadParque(selectedParque);
+    }
+
+
+
     /**
      * Obtenemos el nombre y la ciudad de un parque dado un objeto Parque
      * @param parque
@@ -298,27 +399,38 @@ public class AppController implements Initializable {
         selectedCiudad.setNombreCiudad(nombreCiudad);
         cbCiudad.setValue(selectedCiudad);
     }
+    /**
+     * Obtenemos los datos de una tarea dado un objeto Tarea
+     * @param tarea
+     */
+    public void loadTarea(Tarea tarea){
+       tfTarea.setText(tarea.getNombre());
+       taDescripcion.setText(tarea.getDescripcion());
+    }
 
     private void editModeParque(boolean edit){
         btnNewParque.setDisable(edit);
         btnAddParque.setDisable(!edit);
         btnModifyParque.setDisable(!edit);
         btnDeleteParque.setDisable(!edit);
+        btnCancel.setDisable(edit);
+        btnSave.setDisable(!edit);
 
-        tfParque.setDisable(edit);
+        tfParque.setDisable(!edit);
+        cbCiudad.setDisable(!edit);
 
-        cbCiudad.setDisable(edit);
-        lvParques.setDisable(edit);
-        editModeTarea(true);
     }
 
     private void editModeTarea(boolean edit){
-        btnNewParque.setDisable(!edit);
+        btnNewTarea.setDisable(edit);
         btnAddTarea.setDisable(!edit);
         btnModifyTarea.setDisable(!edit);
         btnDeleteTarea.setDisable(!edit);
+        btnCancel.setDisable(edit);
+
         tfTarea.setDisable(!edit);
         taDescripcion.setDisable(!edit);
-        tvTarea.setDisable(!edit);
+
     }
+
 }
