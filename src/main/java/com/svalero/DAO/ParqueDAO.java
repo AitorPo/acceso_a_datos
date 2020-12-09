@@ -38,25 +38,25 @@ public class ParqueDAO {
 
     public void insertParque(Parque parque) throws SQLException{
         PreparedStatement ps = null;
-
         ps = conn.prepareStatement(Constants.ConstantsParque.INSERT);
         ps.setString(1, parque.getNombreParque());
         ps.setInt(2, parque.getIdCiudad());
-
         ps.executeUpdate();
     }
 
+    //Delete multitabla. Si se elimina un parque se eliminarán todas
+    //las tareas asociadas a este
     public void deleteParque(Parque parque) throws SQLException{
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.DELETE);
-        ps.setString(1, parque.getNombreParque());
+        ps.setInt(1, parque.getIdParque());
         ps.executeUpdate();
     }
 
-    public void updateParque(Parque parqueOriginal, Parque parqueNuevo) throws SQLException {
+    public void updateParque(Parque originalParque, Parque newParque) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.UPDATE);
-        ps.setString(1, parqueNuevo.getNombreParque());
-        ps.setInt(2, parqueNuevo.getIdCiudad());
-        ps.setInt(3, parqueOriginal.getIdParque());
+        ps.setString(1, newParque.getNombreParque());
+        ps.setInt(2, newParque.getIdCiudad());
+        ps.setInt(3, originalParque.getIdParque());
         ps.executeUpdate();
     }
 
@@ -64,7 +64,6 @@ public class ParqueDAO {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.EXISTS);
         ps.setString(1, parque.getNombreParque());
         ResultSet rs = ps.executeQuery();
-
         return rs.next();
     }
 
@@ -73,7 +72,6 @@ public class ParqueDAO {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_NAME_BY_ID);
         ps.setInt(1, parque.getIdCiudad());
         ResultSet rs = ps.executeQuery();
-
         if (rs.next()){
             ciudad = rs.getString(1);
         }
@@ -84,7 +82,6 @@ public class ParqueDAO {
         List<Parque> parques = new ArrayList<>();
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_All);
         ResultSet rs = ps.executeQuery();
-
         while(rs.next()){
             Parque parque = new Parque();
             //String nombre = rs.getString(1);

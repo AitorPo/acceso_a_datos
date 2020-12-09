@@ -47,10 +47,10 @@ public class CiudadDAO {
         ps.executeUpdate();
     }
 
-    public void updateCiudad(Ciudad ciudadOriginal, Ciudad ciudadNueva) throws SQLException {
+    public void updateCiudad(Ciudad originalCiudad, Ciudad newCiudad) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.UPDATE);
-        ps.setString(1, ciudadNueva.getNombreCiudad());
-        ps.setInt(2, ciudadOriginal.getIdCiudad());
+        ps.setString(1, newCiudad.getNombreCiudad());
+        ps.setInt(2, originalCiudad.getIdCiudad());
         ps.executeUpdate();
     }
 

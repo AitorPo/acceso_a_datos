@@ -1,6 +1,10 @@
 package util;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+
+import java.util.Optional;
 
 public class AlertUtils {
 
@@ -16,9 +20,12 @@ public class AlertUtils {
         alertInfo.show();
     }
 
-    public static void showConfirm(String confirm){
+    public static void showConfirm(String title, String confirm){
         Alert alertConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+        alertConfirm.setTitle(title);
         alertConfirm.setContentText(confirm);
-        alertConfirm.show();
+        Optional<ButtonType> response = alertConfirm.showAndWait();
+        if (response.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE)
+            return;
     }
 }
