@@ -48,13 +48,15 @@ public class ParqueDAO {
 
     public void deleteParque(Parque parque) throws SQLException{
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.DELETE);
+        ps.setString(1, parque.getNombreParque());
         ps.executeUpdate();
     }
 
     public void updateParque(Parque parqueOriginal, Parque parqueNuevo) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.UPDATE);
         ps.setString(1, parqueNuevo.getNombreParque());
-        ps.setInt(2, parqueOriginal.getIdCiudad());
+        ps.setInt(2, parqueNuevo.getIdCiudad());
+        ps.setInt(3, parqueOriginal.getIdParque());
         ps.executeUpdate();
     }
 
@@ -66,15 +68,29 @@ public class ParqueDAO {
         return rs.next();
     }
 
+    public String getCiudadParque(Parque parque) throws SQLException{
+        String ciudad = null;
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_NAME_BY_ID);
+        ps.setInt(1, parque.getIdCiudad());
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()){
+            ciudad = rs.getString(1);
+        }
+        return ciudad;
+    }
+
     public List<Parque> getAllParque() throws SQLException {
         List<Parque> parques = new ArrayList<>();
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_NAME);
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.SELECT_All);
         ResultSet rs = ps.executeQuery();
 
         while(rs.next()){
             Parque parque = new Parque();
-            String nombre = rs.getString(1);
-            parque.setNombreParque(nombre);
+            //String nombre = rs.getString(1);
+            parque.setIdParque(rs.getInt(1));
+            parque.setNombreParque(rs.getString(2));
+            parque.setIdCiudad(rs.getInt(3));
             //System.out.println(nombre);
             parques.add(parque);
         }

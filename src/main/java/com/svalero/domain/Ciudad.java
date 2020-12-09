@@ -39,7 +39,7 @@ public class Ciudad {
 
     @Override
     public String toString() {
-        return getIdCiudad() + " " + getNombreCiudad() + " " + getComunidadAutonoma();
+        return getNombreCiudad();
     }
 
     public String showNombre(){

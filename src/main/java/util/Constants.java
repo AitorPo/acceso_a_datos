@@ -13,9 +13,10 @@ public class Constants {
     public static class ConstantsParque{
         public static final String INSERT = "INSERT INTO parque (nombre, id_ciudad) VALUES (?, ?)";
         public static final String DELETE = "DELETE from parque WHERE nombre = ?";
-        public static final String UPDATE = "UPDATE parque SET nombre = ? where id_parque = ?";
+        public static final String UPDATE = "UPDATE parque SET nombre = ?, id_ciudad = ? WHERE id_parque = ?";
         public static final String EXISTS = "SELECT * FROM parque WHERE nombre = ?";
-        public static final String SELECT_NAME = "SELECT name FROM parque";
+        public static final String SELECT_All = "SELECT * FROM parque";
+        public static final String SELECT_NAME_BY_ID = "SELECT c.nombre from ciudad c INNER JOIN parque p ON c.id_ciudad = p.id_ciudad WHERE p.id_ciudad = ?";
     }
 
     public static class ConstantsTarea{

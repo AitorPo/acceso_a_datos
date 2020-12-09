@@ -39,13 +39,14 @@
             <Button fx:id="btnAddTarea" layoutX="282.0" layoutY="245.0" mnemonicParsing="false" onAction="#addTarea" prefHeight="25.0" prefWidth="97.0" text="Añadir tarea" />
             <Button fx:id="btnModifyParque" layoutX="88.0" layoutY="281.0" mnemonicParsing="false" onAction="#modifyParque" text="Modificar parque" />
             <Button fx:id="btnModifyTarea" layoutX="282.0" layoutY="281.0" mnemonicParsing="false" onAction="#modifyTarea" text="Modificar tarea" />
-            <Button fx:id="btnDeleteTarea" layoutX="633.0" layoutY="319.0" mnemonicParsing="false" onAction="#deleteTarea" text="Eliminar registro" />
-            <ListView fx:id="lvParques" layoutX="417.0" layoutY="22.0" prefHeight="293.0" prefWidth="319.0" />
+            <Button fx:id="btnDeleteTarea" layoutX="282.0" layoutY="317.0" mnemonicParsing="false" onAction="#deleteTarea" prefHeight="25.0" prefWidth="98.0" text="Eliminar tarea" />
+            <ListView fx:id="lvParques" layoutX="417.0" layoutY="22.0" onMouseClicked="#getParqueData" prefHeight="293.0" prefWidth="319.0" />
             <Label layoutX="91.0" layoutY="222.0" text="Gestión de parques" />
             <Label layoutX="279.0" layoutY="222.0" prefHeight="17.0" prefWidth="98.0" text="Gestión de tareas" />
             <Label layoutX="417.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" text="Lista de parques" />
             <Label layoutX="25.0" layoutY="633.0" text="Actividad de aprendizaje Aitor Poquet Ginestar 2020" />
-            <Label fx:id="lblStatus" layoutX="86.0" layoutY="321.0" prefHeight="17.0" prefWidth="327.0" />
+            <Label fx:id="lblStatus" layoutX="417.0" layoutY="321.0" prefHeight="17.0" prefWidth="319.0" />
+            <Button fx:id="btnDeleteParque" layoutX="89.0" layoutY="317.0" mnemonicParsing="false" onAction="#deleteParque" prefHeight="25.0" prefWidth="108.0" text="Eliminar parque" />
          </children>
       </AnchorPane>
    </children>

@@ -70,23 +70,10 @@ public class CiudadDAO {
 
         if(rs.next()) {
             idCiudad = rs.getInt(1);
-
         }
         return idCiudad;
     }
 
-    /*public List<String> getAllCiudad() throws SQLException {
-        List<String> ciudades = new ArrayList<>();
-        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_NAME);
-        ResultSet rs = ps.executeQuery();
-
-        while(rs.next()){
-
-            String nombre = rs.getString(1);
-            ciudades.add(nombre);
-        }
-        return ciudades;
-    }*/
     public List<Ciudad> getAllCiudad() throws SQLException {
         List<Ciudad> ciudades = new ArrayList<>();
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsCiudad.SELECT_NAME);
@@ -96,7 +83,7 @@ public class CiudadDAO {
             Ciudad ciudad = new Ciudad();
             String nombre = rs.getString(1);
             ciudad.setNombreCiudad(nombre);
-            //System.out.println(nombre);
+            System.out.println(nombre);
             ciudades.add(ciudad);
         }
         return ciudades;

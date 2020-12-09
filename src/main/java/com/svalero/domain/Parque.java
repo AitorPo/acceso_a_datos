@@ -34,4 +34,9 @@ public class Parque {
     public void setNombreParque(String nombreParque) {
         this.nombreParque = nombreParque;
     }
+
+    @Override
+    public String toString() {
+        return getNombreParque();
+    }
 }
