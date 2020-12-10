@@ -2,6 +2,7 @@ com\svalero\App.class
 util\Constants.class
 com\svalero\domain\Ciudad.class
 util\Constants$ConstantsParque.class
+com\svalero\LoginController.class
 com\svalero\DAO\CiudadDAO.class
 util\Constants$ConstantsTarea.class
 com\svalero\domain\Parque.class
