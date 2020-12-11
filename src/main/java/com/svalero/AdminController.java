@@ -115,6 +115,10 @@ public class AdminController {
             AlertUtils.showAlert("Rellena todos los campos");
             return;
         }
+        if (nombreOperario.equals("admin") || passwordOperario.equals("admin")) {
+            AlertUtils.showAlert("NO PUEDES ACTUALIZAR AL ADMIN");
+            return;
+        }
         selectedOperario = tvOperario.getSelectionModel().getSelectedItem();
         try {
             operario = new Operario(nombreOperario, passwordOperario);
@@ -135,6 +139,10 @@ public class AdminController {
         if (res.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) return;
         if (selectedOperario == null){
             AlertUtils.showAlert("Selecciona un operario");
+            return;
+        }
+        if (selectedOperario.getNombre().equals("admin") || selectedOperario.getPassword().equals("admin")) {
+            AlertUtils.showAlert("NO PUEDES BORRAR AL ADMIN");
             return;
         }
         try {
