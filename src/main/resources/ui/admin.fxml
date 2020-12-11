@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="tvOperario" layoutX="5.0" layoutY="243.0" onMouseClicked="#getOperarioData" prefHeight="200.0" prefWidth="590.0" />
+      <TextField fx:id="tfOperario" layoutX="226.0" layoutY="29.0" />
+      <TextField fx:id="tfPassword" layoutX="227.0" layoutY="80.0" />
+      <Label layoutX="227.0" layoutY="9.0" text="Nombre del operario" />
+      <Label layoutX="227.0" layoutY="61.0" text="Contraseña del operario" />
+      <Button fx:id="btnAddOperario" layoutX="241.0" layoutY="138.0" mnemonicParsing="false" onAction="#addOperario" prefHeight="25.0" prefWidth="119.0" text="Registrar operario" />
+      <Button fx:id="btnExit" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" onAction="#onExit" text="Salir" />
+      <Button fx:id="btnUpdateOperario" layoutX="242.0" layoutY="168.0" mnemonicParsing="false" onAction="#updateOperario" prefHeight="25.0" prefWidth="119.0" text="Modificar operario" />
+      <Button fx:id="btnDeleteOperario" layoutX="243.0" layoutY="197.0" mnemonicParsing="false" onAction="#deleteOperario" prefHeight="25.0" prefWidth="119.0" text="Eliminar operario" />
+   </children>
+</AnchorPane>

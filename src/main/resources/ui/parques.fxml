@@ -26,6 +26,7 @@
       </MenuBar>
       <AnchorPane prefHeight="686.0" prefWidth="758.0">
          <children>
+            <Button fx:id="btnExit" layoutX="6.0" layoutY="2.0" mnemonicParsing="false" onAction="#onExit" text="Salir" />
             <TableView fx:id="tvTarea" layoutX="25.0" layoutY="348.0" onMouseClicked="#getTareaData" prefHeight="279.0" prefWidth="711.0" />
             <Label layoutX="92.0" layoutY="26.0" text="Nombre del parque" />
             <Label layoutX="92.0" layoutY="57.0" text="Ciudad del parque" />

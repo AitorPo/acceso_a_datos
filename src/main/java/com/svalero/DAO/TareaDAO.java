@@ -1,5 +1,6 @@
 package com.svalero.DAO;
 
+import com.svalero.domain.Parque;
 import com.svalero.domain.Tarea;
 import util.Constants;
 import util.R;
@@ -58,11 +59,17 @@ public class TareaDAO {
         ps.executeUpdate();
     }
 
+    public boolean existsTarea(Tarea tarea) throws SQLException{
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.EXISTS);
+        ps.setString(1, tarea.getNombre());
+        ResultSet rs = ps.executeQuery();
+        return rs.next();
+    }
+
     public List<Tarea> getAllTarea() throws SQLException{
         List<Tarea> tareas = new ArrayList<>();
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsTarea.SELECT_ALL);
         ResultSet rs = ps.executeQuery();
-
         while (rs.next()){
             Tarea tarea = new Tarea();
             tarea.setIdTarea(rs.getInt(1));
@@ -74,5 +81,4 @@ public class TareaDAO {
         }
         return tareas;
     }
-
 }

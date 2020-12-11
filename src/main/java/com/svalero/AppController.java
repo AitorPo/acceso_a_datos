@@ -10,10 +10,15 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import util.AlertUtils;
+import util.R;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -34,7 +39,7 @@ public class AppController implements Initializable {
     public TableView<Tarea> tvTarea;
     public Button btnAddParque, btnAddTarea, btnModifyParque,
             btnModifyTarea, btnDeleteParque, btnDeleteTarea, btnNewTarea,
-            btnNewParque, btnCancel, btnSave;
+            btnNewParque, btnCancel, btnSave, btnExit;
 
     public AppController() {
     }
@@ -310,6 +315,27 @@ public class AppController implements Initializable {
         btnModifyTarea.setDisable(true);
         btnAddTarea.setDisable(true);
         btnCancel.setDisable(false);
+    }
+
+    @FXML
+    public void onExit(ActionEvent event){
+        try {
+            Stage stage = new Stage();
+            LoginController loginController = new LoginController();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(R.getUi("login.fxml"));
+            loader.setController(loginController);
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+            Stage operariOStage = (Stage) tfTarea.getScene().getWindow();
+            operariOStage.close();
+        } catch (IOException ioe) {
+            AlertUtils.showError("Error al salir de la pantalla");
+        }
     }
 
     /**

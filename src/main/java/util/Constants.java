@@ -23,7 +23,17 @@ public class Constants {
         public static final String INSERT = "INSERT INTO tarea (id_parque, nombre, descripcion) VALUES (?, ?, ?)";
         public static final String DELETE = "DELETE FROM tarea WHERE nombre = ?";
         public static final String UPDATE = "UPDATE tarea SET nombre = ?, descripcion = ? WHERE id_parque = ?";
-        public static final String EXISTS = "SELECT COUNT(*) FROM tarea WHERE nombre = ?";
+        public static final String EXISTS = "SELECT * FROM tarea WHERE nombre = ?";
         public static final String SELECT_ALL = "SELECT * FROM tarea";
+    }
+
+    public static class ConstantsOperario{
+        public static final String INSERT = "INSERT INTO operario (nombre, password) VALUES (?, ?)";
+        public static final String DELETE = "DELETE FROM operario WHERE nombre = ?";
+        public static final String UPDATE = "UPDATE operario SET nombre = ?, password = ? WHERE id_operario = ?";
+        public static final String EXISTS = "SELECT COUNT(*) FROM operario WHERE nombre = ?";
+        public static final String SELECT_ALL = "SELECT * FROM operario";
+
+
     }
 }
