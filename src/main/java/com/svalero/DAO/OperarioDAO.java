@@ -14,6 +14,7 @@ import java.util.Properties;
 public class OperarioDAO {
     private Connection conn;
 
+
     public void connect() throws IOException, ClassNotFoundException, SQLException {
         Properties config = new Properties();
         config.load(R.getProperties("db.properties"));
@@ -61,10 +62,9 @@ public class OperarioDAO {
     public boolean existsOperario(Operario operario) throws SQLException{
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsOperario.EXISTS);
         ps.setString(1, operario.getNombre());
+        ps.setString(2, operario.getPassword());
         ResultSet rs = ps.executeQuery();
-        boolean exist = false;
-        if(rs.next()) exist = true;
-        return exist;
+        return rs.next();
     }
 
     public List<Operario> getAllOperario() throws SQLException{

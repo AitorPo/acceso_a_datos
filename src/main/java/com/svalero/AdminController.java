@@ -43,6 +43,8 @@ public class AdminController {
     public void connect() throws SQLException, IOException, ClassNotFoundException {
         operarioDAO = new OperarioDAO();
         operarioDAO.connect();
+        setTable();
+        refreshTable();
     }
 
     public void refreshTable(){
@@ -73,7 +75,6 @@ public class AdminController {
     }
 
     public void setTable() throws SQLException, IOException, ClassNotFoundException {
-
         Field[] fields = Operario.class.getDeclaredFields();
         for (Field field : fields) {
             if (field.getName().equals("id"))

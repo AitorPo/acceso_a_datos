@@ -31,7 +31,7 @@ public class Constants {
         public static final String INSERT = "INSERT INTO operario (nombre, password) VALUES (?, ?)";
         public static final String DELETE = "DELETE FROM operario WHERE nombre = ?";
         public static final String UPDATE = "UPDATE operario SET nombre = ?, password = ? WHERE id_operario = ?";
-        public static final String EXISTS = "SELECT COUNT(*) FROM operario WHERE nombre = ?";
+        public static final String EXISTS = "SELECT id_operario FROM operario WHERE nombre = ? AND password = ?";
         public static final String SELECT_ALL = "SELECT * FROM operario";
 
 
