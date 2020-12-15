@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="684.0" prefWidth="758.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <MenuBar>
         <menus>
@@ -37,22 +47,26 @@
             <Label layoutX="92.0" layoutY="90.0" text="Nombre de la tarea" />
             <TextField fx:id="tfTarea" layoutX="218.0" layoutY="87.0" />
             <Button fx:id="btnAddParque" layoutX="56.0" layoutY="249.0" mnemonicParsing="false" onAction="#addParque" prefHeight="25.0" prefWidth="108.0" text="Nuevo parque" />
-            <Button fx:id="btnAddTarea" layoutX="186.0" layoutY="249.0" mnemonicParsing="false" onAction="#addTarea" prefHeight="25.0" prefWidth="108.0" text="Nueva tarea" />
+            <Button fx:id="btnAddTarea" layoutX="176.0" layoutY="250.0" mnemonicParsing="false" onAction="#addTarea" prefHeight="25.0" prefWidth="108.0" text="Nueva tarea" />
             <Button fx:id="btnModifyParque" layoutX="56.0" layoutY="279.0" mnemonicParsing="false" onAction="#modifyParque" text="Modificar parque" />
-            <Button fx:id="btnModifyTarea" layoutX="186.0" layoutY="279.0" mnemonicParsing="false" onAction="#modifyTarea" prefHeight="25.0" prefWidth="108.0" text="Modificar tarea" />
-            <Button fx:id="btnDeleteTarea" layoutX="186.0" layoutY="310.0" mnemonicParsing="false" onAction="#deleteTarea" prefHeight="25.0" prefWidth="108.0" text="Eliminar tarea" />
-            <ListView fx:id="lvParques" layoutX="417.0" layoutY="22.0" onMouseClicked="#getParqueData" prefHeight="293.0" prefWidth="319.0" />
+            <Button fx:id="btnModifyTarea" layoutX="176.0" layoutY="280.0" mnemonicParsing="false" onAction="#modifyTarea" prefHeight="25.0" prefWidth="108.0" text="Modificar tarea" />
+            <Button fx:id="btnDeleteTarea" layoutX="176.0" layoutY="311.0" mnemonicParsing="false" onAction="#deleteTarea" prefHeight="25.0" prefWidth="108.0" text="Eliminar tarea" />
+            <ListView fx:id="lvParques" layoutX="417.0" layoutY="22.0" onMouseClicked="#getParqueData" prefHeight="279.0" prefWidth="319.0" />
             <Label layoutX="58.0" layoutY="199.0" text="Gestión de parques" />
-            <Label layoutX="187.0" layoutY="200.0" prefHeight="17.0" prefWidth="98.0" text="Gestión de tareas" />
+            <Label layoutX="177.0" layoutY="201.0" prefHeight="17.0" prefWidth="98.0" text="Gestión de tareas" />
             <Label layoutX="417.0" layoutY="6.0" prefHeight="17.0" prefWidth="98.0" text="Lista de parques" />
             <Label layoutX="25.0" layoutY="633.0" text="Actividad de aprendizaje Aitor Poquet Ginestar 2020" />
             <Label fx:id="lblStatus" layoutX="417.0" layoutY="321.0" prefHeight="17.0" prefWidth="319.0" />
             <Button fx:id="btnDeleteParque" layoutX="56.0" layoutY="309.0" mnemonicParsing="false" onAction="#deleteParque" prefHeight="25.0" prefWidth="108.0" text="Eliminar parque" />
-            <Button fx:id="btnNewTarea" layoutX="186.0" layoutY="220.0" mnemonicParsing="false" onAction="#newTarea" prefHeight="25.0" prefWidth="108.0" text="Editar tareas" />
+            <Button fx:id="btnNewTarea" layoutX="176.0" layoutY="221.0" mnemonicParsing="false" onAction="#newTarea" prefHeight="25.0" prefWidth="108.0" text="Editar tareas" />
             <Button fx:id="btnNewParque" layoutX="55.0" layoutY="220.0" mnemonicParsing="false" onAction="#newParque" prefHeight="25.0" prefWidth="108.0" text="Editar parques" />
-            <Button fx:id="btnCancel" layoutX="305.0" layoutY="221.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="108.0" text="Cancelar edición" />
-            <Label layoutX="319.0" layoutY="201.0" text="Modo edición" />
-            <Button fx:id="btnSave" layoutX="305.0" layoutY="249.0" mnemonicParsing="false" onAction="#onSave" text="Guardar" />
+            <Button fx:id="btnCancel" layoutX="293.0" layoutY="311.0" mnemonicParsing="false" onAction="#onCancel" prefHeight="25.0" prefWidth="115.0" text="Cancelar edición" />
+            <Label layoutX="314.0" layoutY="202.0" text="Modo edición" />
+            <Button fx:id="btnSave" layoutX="293.0" layoutY="221.0" mnemonicParsing="false" onAction="#onSave" prefHeight="25.0" prefWidth="115.0" text="Guardar" />
+            <Button fx:id="btnFilter" layoutX="577.0" layoutY="309.0" mnemonicParsing="false" onAction="#onFilter" prefHeight="25.0" prefWidth="108.0" text="Buscar" />
+            <ComboBox fx:id="cbFilter" layoutX="417.0" layoutY="309.0" prefWidth="150.0" />
+            <Button fx:id="btnRecover" layoutX="293.0" layoutY="250.0" mnemonicParsing="false" onAction="#onRecover" prefHeight="25.0" prefWidth="115.0" text="Recuperar registro" />
+            <Button fx:id="btnDeleteAll" layoutX="293.0" layoutY="280.0" mnemonicParsing="false" onAction="#onDeleteAll" prefHeight="25.0" prefWidth="115.0" text="Borrar TODO" />
          </children>
       </AnchorPane>
    </children>

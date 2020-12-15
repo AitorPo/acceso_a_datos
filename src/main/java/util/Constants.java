@@ -13,10 +13,12 @@ public class Constants {
     public static class ConstantsParque{
         public static final String INSERT = "INSERT INTO parque (nombre, id_ciudad) VALUES (?, ?)";
         public static final String DELETE = "DELETE p.*, t.* FROM parque p LEFT JOIN tarea t ON p.id_parque = t.id_parque WHERE p.id_parque = ?";
+        public static final String DELETE_ALL = "DELETE p.*, t.* FROM parque p LEFT JOIN tarea t ON p.id_parque = t.id_parque";
         public static final String UPDATE = "UPDATE parque SET nombre = ?, id_ciudad = ? WHERE id_parque = ?";
         public static final String EXISTS = "SELECT * FROM parque WHERE nombre = ?";
         public static final String SELECT_All = "SELECT * FROM parque";
         public static final String SELECT_NAME_BY_ID = "SELECT c.nombre FROM ciudad c INNER JOIN parque p ON c.id_ciudad = p.id_ciudad WHERE p.id_ciudad = ?";
+        public static final String FILTER_BY_CITY_NAME = "SELECT p.nombre FROM parque p INNER JOIN ciudad c ON p.id_ciudad = c.id_ciudad WHERE c.nombre = ?";
     }
 
     public static class ConstantsTarea{
@@ -31,7 +33,7 @@ public class Constants {
         public static final String INSERT = "INSERT INTO operario (nombre, password) VALUES (?, ?)";
         public static final String DELETE = "DELETE FROM operario WHERE nombre = ?";
         public static final String UPDATE = "UPDATE operario SET nombre = ?, password = ? WHERE id_operario = ?";
-        public static final String EXISTS = "SELECT id_operario FROM operario WHERE nombre = ? AND password = ?";
+        public static final String EXISTS = "SELECT * FROM operario where nombre = ?";
         public static final String SELECT_ALL = "SELECT * FROM operario";
 
 

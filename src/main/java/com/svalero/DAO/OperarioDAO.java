@@ -62,14 +62,14 @@ public class OperarioDAO {
     public boolean existsOperario(Operario operario) throws SQLException{
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsOperario.EXISTS);
         ps.setString(1, operario.getNombre());
-        ps.setString(2, operario.getPassword());
+        //ps.setString(2, operario.getPassword());
         ResultSet rs = ps.executeQuery();
         return rs.next();
     }
 
     public List<Operario> getAllOperario() throws SQLException{
         List<Operario> operarios = new ArrayList<>();
-        PreparedStatement ps = conn.prepareStatement("SELECT * FROM operario");
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsOperario.SELECT_ALL);
         ResultSet rs = ps.executeQuery();
         while (rs.next()){
             Operario operario = new Operario();

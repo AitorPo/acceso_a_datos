@@ -88,7 +88,15 @@ public class AdminController {
 
     public AdminController(){}
 
-
+    public boolean existsOperario(Operario operario){
+        boolean exists = true;
+        try {
+            exists = operarioDAO.existsOperario(operario);
+        } catch (SQLException sqle) {
+            AlertUtils.showAlert("El operario ya existe");
+        }
+        return exists;
+    }
     @FXML
     public void addOperario(ActionEvent event){
         String nombreOperario = tfOperario.getText();
@@ -97,7 +105,13 @@ public class AdminController {
             AlertUtils.showAlert("Rellena todos los campos");
             return;
         }
+        boolean exists;
         operario = new Operario(nombreOperario, passwordOperario);
+        exists = existsOperario(operario);
+        if (exists) {
+            AlertUtils.showError("El operario ya existe");
+            return;
+        }
         try {
             operarioDAO.insertOperario(operario);
         } catch (SQLException sqle){

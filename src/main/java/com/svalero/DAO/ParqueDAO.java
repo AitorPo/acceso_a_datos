@@ -52,6 +52,11 @@ public class ParqueDAO {
         ps.executeUpdate();
     }
 
+    public void deleteAll() throws SQLException {
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.DELETE_ALL);
+        ps.executeUpdate();
+    }
+
     public void updateParque(Parque originalParque, Parque newParque) throws SQLException {
         PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.UPDATE);
         ps.setString(1, newParque.getNombreParque());
@@ -89,6 +94,22 @@ public class ParqueDAO {
             parque.setNombreParque(rs.getString(2));
             parque.setIdCiudad(rs.getInt(3));
             //System.out.println(nombre);
+            parques.add(parque);
+        }
+        return parques;
+    }
+
+    public List<Parque> getFilterParque(Ciudad ciudad) throws SQLException {
+        List<Parque> parques = new ArrayList<>();
+        PreparedStatement ps = conn.prepareStatement(Constants.ConstantsParque.FILTER_BY_CITY_NAME);
+        ps.setString(1, ciudad.getNombreCiudad());
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            Parque parque = new Parque();
+            String nombre = rs.getString(1);
+            parque.setNombreParque(nombre);
+            System.out.println(nombre);
             parques.add(parque);
         }
         return parques;

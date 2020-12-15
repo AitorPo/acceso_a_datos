@@ -1,6 +1,7 @@
 package com.svalero.domain;
 
 public class Parque {
+    public static Parque recoveredParque;
     private int idParque;
     private int idCiudad;
     private String nombreParque;
@@ -37,6 +38,6 @@ public class Parque {
 
     @Override
     public String toString() {
-        return getIdParque() + " " + getNombreParque() + " " + getIdCiudad();
+        return getNombreParque();
     }
 }
